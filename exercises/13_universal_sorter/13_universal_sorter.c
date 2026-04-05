@@ -40,8 +40,51 @@ void processFile(const char *filename) {
     printf("=== 处理数据来自: %s ===\n", filename);
 
     switch (choice) {
-        // TODO: 在这里添加你的代码
-        // I AM NOT DONE
+        case 1: { // 整数排序
+            int intArray[20];
+            for (int i = 0; i < n; i++) {
+                fscanf(fin, "%d", &intArray[i]);
+            }
+            sort(intArray, n, sizeof(int), compareInt);
+            printf("排序后的整数: ");
+            for (int i = 0; i < n; i++) {
+                printf("%d ", intArray[i]);
+            }
+            printf("\n");
+            break;
+        }
+        case 2: { // 浮点数排序
+            float floatArray[20];
+            for (int i = 0; i < n; i++) {
+                fscanf(fin, "%f", &floatArray[i]);
+            }
+            sort(floatArray, n, sizeof(float), compareFloat);
+            printf("排序后的浮点数: ");
+            for (int i = 0; i < n; i++) {
+                printf("%f ", floatArray[i]);
+            }
+            printf("\n");
+            break;
+        }
+        case 3: { // 字符串排序
+            char *stringArray[20];
+            char buffer[100];
+            for (int i = 0; i < n; i++) {
+                fscanf(fin, "%s", buffer);
+                stringArray[i] = strdup(buffer);
+            }
+            sort(stringArray, n, sizeof(char*), compareString);
+            printf("排序后的字符串: ");
+            for (int i = 0; i < n; i++) {
+                printf("%s ", stringArray[i]);
+                free(stringArray[i]);
+            }
+            printf("\n");
+            break;
+        }
+        default:
+            printf("错误: 未知的排序类型 %d\n", choice);
+            break;
     }
 
     fclose(fin);
