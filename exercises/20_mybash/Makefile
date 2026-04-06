@@ -27,10 +27,10 @@ $(SUBDIRS):
 mybash: $(SUBDIRS)
 	@echo "Building mybash..."
 	@$(MAKE) -C src/mybash \
-		BINDIR=$(PWD)/bin \
 		OBJDIR=$(PWD)/obj/mybash \
-		LDFLAGS="$(LDFLAGS) -L$(PWD)/obj/mysed -L$(PWD)/obj/mywc -L$(PWD)/obj/mytrans -L$(PWD)/obj/myfile" \
-		LDLIBS="$(LDLIBS) -lmysed -lmywc -lmytrans -lmyfile"
+		LINKCMD='cc -Wall -I../../include $$(OBJDIR)/main.o -o $(PWD)/bin/mybash \
+			-L$(PWD)/obj/mysed -L$(PWD)/obj/mywc -L$(PWD)/obj/mytrans -L$(PWD)/obj/myfile \
+			-lmysed -lmywc -lmytrans -lmyfile'
 
 # 清理所有生成的文件
 clean:
