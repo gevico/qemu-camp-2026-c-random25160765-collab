@@ -22,15 +22,32 @@ TreeNode* create_node(char letter) {
 
 // 向BST中插入节点或更新计数
 TreeNode* insert_or_update(TreeNode* root, char letter) {
-    // TODO: 在这里添加你的代码
-    // I AM NOT DONE
+    char lower_letter = tolower(letter);
+    
+    if (root == NULL) {
+        return create_node(lower_letter);
+    }
+    
+    if (lower_letter < root->letter) {
+        root->left = insert_or_update(root->left, lower_letter);
+    } else if (lower_letter > root->letter) {
+        root->right = insert_or_update(root->right, lower_letter);
+    } else {
+        root->count++;
+    }
+    
+    return root;
 }
 
 // 中序遍历BST并打印结果（按字母顺序）
 void inorder_traversal(TreeNode* root) {
-    // TODO: 在这里添加你的代码
-    // I AM NOT DONE
+    if (root == NULL) {
+        return;
+    }
+    
+    inorder_traversal(root->left);
     printf("%c:%d\n", root->letter, root->count);
+    inorder_traversal(root->right);
 }
 
 // 释放BST内存
