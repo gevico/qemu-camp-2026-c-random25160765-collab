@@ -82,7 +82,7 @@ int main() {
         strncpy(g_current_exercise.program_output, output, sizeof(g_current_exercise.program_output) - 1);
         g_current_exercise.completed = 1;
     } else {
-        // printf("📝 程序实际完整输出:\n%s\n", output);
+        printf("📝 程序实际完整输出:\n%s\n", output);
         printf("💡 提示: 请确保程序对每个输入的单词，按照如下格式输出翻译或未找到提示：\n");
         printf("         - 原文: <word>      翻译: <translation内容>\n");
         printf("         - 原文: <word>  未找到该单词的翻译。\n");

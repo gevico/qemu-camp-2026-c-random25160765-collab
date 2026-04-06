@@ -122,7 +122,7 @@
      // 运行程序
      switch (is_make) {
         case 2: {
-            snprintf(run_cmd, sizeof(run_cmd), "bash ./test_%s.sh", executable);
+            snprintf(run_cmd, sizeof(run_cmd), "/home/rd/courses/qemu-camp-2026-c-random25160765-collab/exercises/20_mybash/bin/mybash ./test_%s.sh", executable);
             fp = popen(run_cmd, "r");
             if (fp == NULL) {
                 strncpy(output, "无法执行程序", output_size - 1);

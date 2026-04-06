@@ -12,5 +12,6 @@
 
 
 void print_elf_type(uint16_t e_type);
+int __cmd_myfile(const char* filename);
 
 #endif //! __MYFILE_H__
