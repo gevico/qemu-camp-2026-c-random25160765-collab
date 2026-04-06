@@ -2,8 +2,10 @@
 #include <stdio.h>
 
 uint32_t swap_endian(uint32_t num) {
-    // TODO: 在这里添加你的代码
-    // I AM NOT DONE
+    return ((num & 0x000000FF) << 24) |
+           ((num & 0x0000FF00) << 8) |
+           ((num & 0x00FF0000) >> 8) |
+           ((num & 0xFF000000) >> 24);
 }
 
 int main(int argc, char* argv[]) {
