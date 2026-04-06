@@ -9,7 +9,6 @@ TARGET := mybash
 BINDIR ?= ./bin
 # 中间文件目录（比如 ./obj/src/mybash/）
 OBJDIR ?= ./obj
-LINKLIBS ?= -L../../obj/mysed -L../../obj/mywc -L../../obj/mytrans -L../../obj/myfile
 
 # 源文件
 SRCS := main.c
@@ -31,7 +30,7 @@ $(OBJDIR)/%.o: %.c $(OBJDIR)
 
 # 链接生成可执行文件
 $(TARGET_PATH): $(OBJS) $(BINDIR)
-	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LINKLIBS) -lmysed -lmywc -lmytrans -lmyfile
+	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LDFLAGS) $(LDLIBS)
 
 clean:
 	@rm -rf $(OBJDIR)/*.o $(TARGET_PATH)

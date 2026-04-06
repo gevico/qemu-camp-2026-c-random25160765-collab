@@ -5,7 +5,7 @@
 #   - 其他模块（mysed, myfile, mywc, mytrans）：生成静态库 .a，放到 obj/xxx/，.o 放到 obj/xxx/（或 out/，但建议统一）
 #   - 所有子模块 Makefile 应支持 OBJDIR 和 BINDIR 参数
 # =============================================
-
+export BINDIR OBJDIR LDFLAGS LDLIBS
 PWD := $(shell pwd)
 
 # 所有子模块目录（静态库：生成 .a）
@@ -26,7 +26,11 @@ $(SUBDIRS):
 # 构建 mybash（可执行文件，依赖上面的库）
 mybash: $(SUBDIRS)
 	@echo "Building mybash..."
-	@$(MAKE) -C src/mybash BINDIR=$(PWD)/bin OBJDIR=$(PWD)/obj/mybash LINKLIBS="-L$(PWD)/obj/mysed -L$(PWD)/obj/mywc -L$(PWD)/obj/mytrans -L$(PWD)/obj/myfile"
+	@$(MAKE) -C src/mybash \
+		BINDIR=$(PWD)/bin \
+		OBJDIR=$(PWD)/obj/mybash \
+		LDFLAGS="$(LDFLAGS) -L$(PWD)/obj/mysed -L$(PWD)/obj/mywc -L$(PWD)/obj/mytrans -L$(PWD)/obj/myfile" \
+		LDLIBS="$(LDLIBS) -lmysed -lmywc -lmytrans -lmyfile"
 
 # 清理所有生成的文件
 clean:
