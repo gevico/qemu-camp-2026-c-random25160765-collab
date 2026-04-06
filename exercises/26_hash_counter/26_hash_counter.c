@@ -136,7 +136,7 @@ char *get_next_word(const char **text) {
 }
 
 int main(int argc, char *argv[]) {
-    const char* file_path = "/home/rd/courses/qemu-camp-2026-c-random25160765-collab/exercises/26_hash_counter/paper.txt";
+    const char* file_path = "paper.txt";
 
     FILE *file = fopen(file_path, "r");
     if (file == NULL) {
