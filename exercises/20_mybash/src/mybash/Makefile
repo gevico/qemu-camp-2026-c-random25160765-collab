@@ -1,36 +1,37 @@
 # src/mybash/Makefile
 
-CC = gcc
-CFLAGS = -Wall -I../../include
+CC ?= gcc
+CFLAGS ?= -Wall -I../../include
 
-# 可执行文件名
 TARGET := mybash
-# 最终输出到 BINDIR（比如 ./bin/）
+
 BINDIR ?= ./bin
-# 中间文件目录（比如 ./obj/src/mybash/）
 OBJDIR ?= ./obj
 
-# 源文件
-SRCS := main.c
-OBJS := $(SRCS:.c=.o)
-OBJS := $(patsubst %.o,$(OBJDIR)/%.o,$(OBJS))
+# 接收顶层传来的链接参数（清空默认值）
+LDFLAGS ?=
+LDLIBS  ?=
 
-# 最终二进制路径
+SRCS := main.c
+OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(SRCS))
+
 TARGET_PATH := $(BINDIR)/$(TARGET)
 
 all: $(TARGET_PATH)
 
-# 创建目标目录
+# 创建目录
 $(BINDIR) $(OBJDIR):
 	@mkdir -p $@
 
-# 编译 .c 文件为 .o 文件
-$(OBJDIR)/%.o: %.c $(OBJDIR)
+# 编译
+$(OBJDIR)/%.o: %.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# 链接生成可执行文件
-$(TARGET_PATH): $(OBJS) $(BINDIR)
+# 链接 —— 只使用 LDFLAGS 和 LDLIBS（最关键）
+$(TARGET_PATH): $(OBJS) | $(BINDIR)
 	$(CC) $(CFLAGS) $(OBJS) -o $@ $(LDFLAGS) $(LDLIBS)
 
 clean:
-	@rm -rf $(OBJDIR)/*.o $(TARGET_PATH)
+	@rm -rf $(OBJDIR) $(TARGET_PATH)
+
+.PHONY: all clean
